@@ -20,10 +20,10 @@ raw_poison %>%
   summarise(across(Potato:Icecream, \(x) sum(grepl("y$", x)))) %>% #for foods, get number of yeses
   pivot_longer(!Sick, names_to = "food", values_to = "num") #stack data by food and n_sick
   
-
 ggplot(food_graph_data, aes(x = food,  y = num, fill = Sick)) +
   geom_col(position = "fill") +
-  labs(y = "Proportion sick/not sick")
+  labs(y = "Proportion sick/not sick",
+       x = "Food")
 
 # No obvious problems
 
@@ -48,4 +48,7 @@ dimdesc(poison_mca)
 #### Hierarchical clustering ####
 
 poison_HCPC <- HCPC(poison_mca, method = "ward", nb.clust = -1)
+fviz_dend(poison_HCPC)
+poison_HCPC$desc.var
+poison_HCPC$desc.var$category$`3`
 plot(poison_HCPC)
