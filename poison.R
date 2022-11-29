@@ -52,3 +52,19 @@ fviz_dend(poison_HCPC)
 poison_HCPC$desc.var
 poison_HCPC$desc.var$category$`3`
 plot(poison_HCPC)
+
+# https://www.r-bloggers.com/2020/05/binary-logistic-regression-with-r/
+
+#### Binomial regression ####
+library(caret)
+
+quali_sup_vars <- which(names(raw_poison) %in% c("Sex", "Nausea", "Vomiting", "Abdominals", "Fever", "Diarrhae"))
+quanti_sup_vars <- which(names(raw_poison) %in% c("ID", "Age", "Time"))
+
+
+chr_cols <- sapply(raw_poison, is.character)
+glm_poison_data <- as.data.frame(lapply(raw_poison, \(x) if(is.character(x)) as.factor(x) else x))
+glm_poison_data$Sick <- as.integer(glm_poison_data$Sick) - 1
+
+poison_glm <- glm(Sick ~ ., family = binomial(), data=glm_poison_data[, -c(quali_sup_vars, quanti_sup_vars)])
+summary(poison_glm)
