@@ -6,5 +6,7 @@
 *.pdf
 *.html
 *.pptx
+*.png
+*.Rmd 
 
 credentials/
