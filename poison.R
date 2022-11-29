@@ -47,4 +47,5 @@ fviz_screeplot(poison_mca)
 dimdesc(poison_mca)
 #### Hierarchical clustering ####
 
-poison_cluster <- HCPC(poison_mca, method = "ward", nb.clust = -1)
+poison_HCPC <- HCPC(poison_mca, method = "ward", nb.clust = -1)
+plot(poison_HCPC)
